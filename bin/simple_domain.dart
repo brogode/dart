@@ -2,54 +2,54 @@ import 'package:simple_domain/simple_domain.dart' as simple_domain;
 
 void main(List<String> arguments) {
   print('Hello world: ${simple_domain.calculate()}!');
-  var sedan = Sedan('Toyota', 'Camry', 2021);
-  var suv = SUV('Ford', 'Explorer', 2022);
+  var nokia = Nokia('red', 'Nokia XR20', 2021);
+  var iphone = Iphone('white', 'iPhone 14', 2022);
 
-  print(sedan.toString());
-  print(suv.toString());
+  print(nokia.toString());
+  print(iphone.toString());
 
-  sedan.start();
-  suv.start();
+  nokia.ison();
+  iphone.ison();
 
 }
   
 
 
-abstract class Car {
-  String make;
+abstract class Phone {
+  String color;
   String model;
   int year;
-  int numDoors;
+  
 
-  Car(this.make, this.model, this.year, this.numDoors);
+  Phone(this.color, this.model, this.year);
 
-  void start() {
-    print('The $make $model starts.');
+  void ison() {
+    print('The $color $model switchs on.');
   }
 
   @override
   String toString() {
-    return '$year $make $model with $numDoors doors';
-  }
-}
-
-class Sedan extends Car {
-  Sedan(String make, String model, int year)
-      : super(make, model, year, 4);
-
-  @override
-  String toString() {
-    return '${super.toString()} (Sedan)';
+    return '$year $model with $color color';
   }
 }
 
-class SUV extends Car {
-  SUV(String make, String model, int year)
-      : super(make, model, year, 5);
+class  Nokia extends Phone {
+  Nokia(String color, String model, int year)
+      : super(color, model, year);
 
   @override
   String toString() {
-    return '${super.toString()} (SUV)';
+    return '${super.toString()} (Nokia)';
+  }
+}
+
+class Iphone extends Phone {
+  Iphone(String color, String model, int year)
+      : super(color, model, year);
+
+  @override
+  String toString() {
+    return '${super.toString()} (Iphone)';
   }
 }
 
