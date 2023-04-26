@@ -18,7 +18,7 @@ class Song {
   set artist(String value) => this._artist = value;
 
   void play() {
-    print("Playing ${this._title} by ${this._artist}");
+    print("Playiing ${this._title} by ${this._artist}");
   }
 }
 
@@ -56,7 +56,7 @@ void main() {
   album.addSong(song2);
   album.addSong(song3);
 
-  Song? foundSong = album.findByTitle("Shape of Yoo");
+  Song? foundSong = album.findByTitle("Shape of You");
   if (foundSong != null) {
     foundSong.play();
   } else {
