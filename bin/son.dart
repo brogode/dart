@@ -4,47 +4,48 @@ class Song {
   String _artist;
 
   Song({required int id, required String title, required String artist})
-      : _id = id,
-        _title = title,
-        _artist = artist;
+      : this._id = id,
+        this._title = title,
+        this._artist = artist;
 
-  int get id => _id;
-  set id(int value) => _id = value;
+  int get id => this._id;
+  set id(int value) => this._id = value;
 
-  String get title => _title;
-  set title(String value) => _title = value;
+  String get title => this._title;
+  set title(String value) => this._title = value;
 
-  String get artist => _artist;
-  set artist(String value) => _artist = value;
+  String get artist => this._artist;
+  set artist(String value) => this._artist = value;
 
   void play() {
-    print("Playing $title by $artist");
+    print("Playing ${this._title} by ${this._artist}");
   }
 }
 
 class Album {
   List<Song> _songs = [];
 
-  List<Song> get songs => _songs;
+  List<Song> get songs => this._songs;
 
   void addSong(Song song) {
-    _songs.add(song);
+    this._songs.add(song);
   }
 
   void removeSong(Song song) {
-    _songs.remove(song);
+    this._songs.remove(song);
   }
 
-  //Song? 
-  findByTitle(var title) {
-   var song = _songs.firstWhere((song) => song.title == title);// ,orElse: () => null);
-   if (song != null) {
+  Song? findByTitle(String title) {
+    var song = this._songs.firstWhere((song) => song.title == title);//, orElse: () => null);
     return song;
+  }
 
-  }else
-    return 'song not found';
+  @override
+  String toString() {
+    return "Album with ${this._songs.length} songs";
   }
 }
+
 void main() {
   Song song1 = Song(id: 1, title: "Shape of You", artist: "Ed Sheeran");
   Song song2 = Song(id: 2, title: "Despacito", artist: "Luis Fonsi");
@@ -55,11 +56,12 @@ void main() {
   album.addSong(song2);
   album.addSong(song3);
 
-  Song? foundSong = album.findByTitle("Shape of You");
+  Song? foundSong = album.findByTitle("Shape of Yoo");
   if (foundSong != null) {
     foundSong.play();
+  } else {
+    print("Song not found");
   }
 
-  print(Album);
+  print(album.toString());
 }
-
