@@ -34,35 +34,31 @@ class JsonDatabase {
   }
 
   List<Map<String, dynamic>> readFromJsonFile(String filename) {
-    // Read the JSON data from the file
     String fileData = File(filename).readAsStringSync();
 
     // Parse the JSON data back into a list
-    List<dynamic> parsedData = jsonDecode(fileData)['articles'];
+    List<dynamic> data = jsonDecode(fileData)['articles'];
 
     // Initialize a list with the parsed data
-    List<Map<String, dynamic>> parsedList =
-        parsedData.map((article) => Map<String, dynamic>.from(article)).toList();
+    List<Map<String, dynamic>> output =
+        data.map((article) => Map<String, dynamic>.from(article)).toList();
 
     // Return the parsed list
-    return parsedList;
+    return output;
   }
 }
 
 
 class file{
-  void writeCSV() {
-    final file = File('example.csv');
-    file.writeAsStringSync('Name, Age\n');
-    file.writeAsStringSync('peter Him, 50\n', mode: FileMode.append);
-    file.writeAsStringSync('Jane Floor, 30\n', mode: FileMode.append);
+  void writeCSV(String filename, String data) {
+    final file = File(filename);
+    file.writeAsStringSync(data);
   }
 
-  void writeYAML() {
-    final data = {'name': 'John Doe', 'age': 25};
+  void writeYAML(String filename, Map<String, dynamic> data) {
     final yamlString = json.encode(data);
     final yamlMap = loadYaml(yamlString);
-    final file = File('example.yaml');
+    final file = File(filename);
     file.writeAsStringSync(json.encode(yamlMap));
   }
 
@@ -85,19 +81,20 @@ class file{
 void main() {
   JsonDatabase newfile = JsonDatabase();
 
+  print('');
+
   // Write the articles to a JSON file
   newfile.writeToJsonFile('data.json');
 
-  // Read the articles from the JSON file
   List<Map<String, dynamic>> articlesFromJsonFile =
       newfile.readFromJsonFile('data.json');
 
-  // Print the articles to verify that they were read correctly
   print(articlesFromJsonFile);
 
 
   final fileOps = file();
-  fileOps.writeCSV();
-  fileOps.writeYAML();
+  fileOps.writeCSV('example.csv', 'Name, Age\npeter Him, 50\nJane Floor, 30\n');
+  fileOps.writeYAML('example.yaml', {'name': 'John Doe', 'age': 25});
   fileOps.writeXmlFile();
+
 }
